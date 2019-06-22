@@ -73,6 +73,16 @@ namespace PlaneSmash.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap enemyCopter {
+            get {
+                object obj = ResourceManager.GetObject("enemyCopter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap helicopterPhoto {
             get {
                 object obj = ResourceManager.GetObject("helicopterPhoto", resourceCulture);

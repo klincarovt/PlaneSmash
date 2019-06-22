@@ -11,7 +11,7 @@ namespace PlaneSmash
     {
         private Point ammoPosition { get; set; }
         private Image ammoImage;
-        private static int travelSpeed = 15;
+        private static int travelSpeed = 10 ;
         private Boolean outOfBound { get; set; }
         public Ammunition(Point p)
         {
