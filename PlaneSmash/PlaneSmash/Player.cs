@@ -53,18 +53,18 @@ namespace PlaneSmash
                 a.drawAmmo(g);
             }
 
-            g.DrawString("Health bar",SystemFonts.IconTitleFont, Brushes.Black, 10, 5);
+            g.DrawString("Health bar",SystemFonts.IconTitleFont, Brushes.Black, 1, 1);
         
-            g.DrawRectangle(Pens.Black, 10, 20, 100, 15);
-            g.FillRectangle(Brushes.Green, 10, 20, Health, 15);
+            g.DrawRectangle(Pens.Black, 1, 20, 100, 15);
+            g.FillRectangle(Brushes.Green, 1, 20, Health, 15);
 
             Font font;
             font = new Font(SystemFonts.DefaultFont,FontStyle.Regular);
            
 
-            g.DrawString("Ammo status", SystemFonts.IconTitleFont, Brushes.Black, 5, Height-100);
-            g.DrawRectangle(Pens.Black, 5, Height-80, 500, 15);
-            g.FillRectangle(Brushes.Red, 5, Height-80, ammoLeft, 15);
+            g.DrawString("Ammo status", SystemFonts.IconTitleFont, Brushes.Black, 5, Height-80);
+            g.DrawRectangle(Pens.Black, 1, Height-60, 500, 15);
+            g.FillRectangle(Brushes.Red, 1, Height-60, ammoLeft, 15);
 
 
 

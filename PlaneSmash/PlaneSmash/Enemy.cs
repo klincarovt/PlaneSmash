@@ -23,17 +23,18 @@ namespace PlaneSmash
         private int moveX { get; set; }
         private int moveY { get; set; }
 
-        public Enemy()
+        public Enemy(int h,int w)
         {
+
             Random random = new Random();
-            Width = 600;
-            Height = 500;
 
-            moveY =  random.Next(0, 10);
-            moveX =  random.Next(0, 10);
+            moveY =  random.Next(-Speed, Speed);
+            moveX =  random.Next(-Speed, Speed);
 
-            
-            Position = new Point(Width,random.Next(1,Height)); ;
+            Height = h;
+            Width = w;
+            Health = 30;
+            Position = new Point(Width-150,random.Next(1,Height-Radius)); ;
   
         }
         
@@ -50,6 +51,8 @@ namespace PlaneSmash
 
         public void enemyDraw(Graphics g)
         {
+            g.DrawRectangle(Pens.Black,Position.X+10,Position.Y-5,Health,5);
+            g.FillRectangle(Brushes.Red, Position.X+10, Position.Y - 5,Health,5);
             g.DrawImage(Avatar,Position.X,Position.Y);
         }
         public void setHeight(int h) { Height = h; }

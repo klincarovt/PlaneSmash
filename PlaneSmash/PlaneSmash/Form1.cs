@@ -18,9 +18,8 @@ namespace PlaneSmash
             this.DoubleBuffered = true;
             p = new Player();
 
-            en = new Enemy();
-            en.setHeight(this.Height);
-            en.setWidth(this.Width);
+            en = new Enemy(this.Height,this.Width);
+
 
 
             //Original timer
