@@ -121,6 +121,9 @@
   <data name="ammo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ammo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ammoReversed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ammoReversed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="enemyCopter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\enemyCopter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

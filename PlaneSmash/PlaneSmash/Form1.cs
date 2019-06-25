@@ -25,7 +25,7 @@ namespace PlaneSmash
             //Original timer
             timer = new Timer();
             timer.Tick += new EventHandler(timer_Tick);
-            timer.Interval = 1;
+            timer.Interval = 10;
             timer.Start();
 
             //Original timer is too fast for the shooting to look natural
@@ -45,6 +45,7 @@ namespace PlaneSmash
         }
         Player p;
         Enemy en;
+    
         //Timers
         private Timer timer;
         private Timer shootTimer;
@@ -63,6 +64,13 @@ namespace PlaneSmash
 
             en.setHeight(this.Height);
             en.setWidth(this.Width);
+
+
+
+          
+            en.moveAmmunition();
+
+            
             p.moveAmmunition();
 
             if (left) p.moveLeft();
@@ -76,7 +84,12 @@ namespace PlaneSmash
         {
 
             if (shoot) p.Shoot();
+
+            en.enemyShoot();
             en.enemyMove();
+
+
+
         }
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
@@ -84,7 +97,8 @@ namespace PlaneSmash
             p.DrawPlayer(e.Graphics);
 
             en.enemyDraw(e.Graphics);
-            
+          
+
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)

@@ -23,6 +23,8 @@ namespace PlaneSmash
         private int moveX { get; set; }
         private int moveY { get; set; }
 
+        List<Ammunition> ammunitions;
+
         public Enemy(int h,int w)
         {
 
@@ -35,6 +37,8 @@ namespace PlaneSmash
             Width = w;
             Health = 30;
             Position = new Point(Width-150,random.Next(1,Height-Radius)); ;
+
+            ammunitions = new List<Ammunition>();
   
         }
         
@@ -49,11 +53,33 @@ namespace PlaneSmash
             Position = new Point((int)(Position.X + moveX), (int)(Position.Y + moveY));
         }
 
+        public void enemyShoot()
+        {
+            ammunitions.Add(new Ammunition(new Point(Position.X,Position.Y+30)));
+        }
+
+        public void moveAmmunition()
+        {
+            foreach (Ammunition ammo in ammunitions)
+            {
+                ammo.enemyAmmoMove(Width);
+            }
+            for (int i = ammunitions.Count - 1; i > 0; i--)
+            {
+                if (ammunitions[i].getOutOfBound()) ammunitions.RemoveAt(i);
+            }
+        }
+
         public void enemyDraw(Graphics g)
         {
             g.DrawRectangle(Pens.Black,Position.X+10,Position.Y-5,Health,5);
             g.FillRectangle(Brushes.Red, Position.X+10, Position.Y - 5,Health,5);
             g.DrawImage(Avatar,Position.X,Position.Y);
+
+            foreach (Ammunition a in ammunitions)
+            {
+                a.enemyAmmo(g);
+            }
         }
         public void setHeight(int h) { Height = h; }
         public void setWidth(int w) { Width = w; }

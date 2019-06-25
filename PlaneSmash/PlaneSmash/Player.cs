@@ -37,7 +37,7 @@ namespace PlaneSmash
         public void Shoot() {   if(ammoLeft>0) ammunitions.Add( new Ammunition ( new Point(Position.X+Radius,Position.Y+Radius) ) ); playerAmmo(); }
         public void moveAmmunition() {
             foreach (Ammunition ammo in ammunitions) {
-                ammo.ammoMove(Width);
+                ammo.playerAmmoMove(Width);
             }
             for (int i = ammunitions.Count-1; i > 0; i--)
             {
