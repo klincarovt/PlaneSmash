@@ -12,43 +12,8 @@ namespace PlaneSmash
 {
     public partial class Form1 : Form
     {
-        public Form1()
-        {
-            InitializeComponent();
-            this.DoubleBuffered = true;
-            p = new Player();
 
-            en = new Enemy(this.Height,this.Width);
-
-
-
-            //Original timer
-            timer = new Timer();
-            timer.Tick += new EventHandler(timer_Tick);
-            timer.Interval = 10;
-            timer.Start();
-
-            //Original timer is too fast for the shooting to look natural
-            //So i made this slower timer so the shooting may look good and the player doesnt lose mobility smoothness
-            shootTimer = new Timer();
-            shootTimer.Tick += new EventHandler(shootTimer_Tick);
-            shootTimer.Interval = 100;
-            shootTimer.Start();
-
-            //Player booleans to increase smoothness
-            right = false;
-            down = false;
-            up = false;
-            left = false;
-            shoot = false;
-            
-        }
-        Player p;
-        Enemy en;
-    
-        //Timers
-        private Timer timer;
-        private Timer shootTimer;
+        Game Game;
 
         //Player move booleans
         private bool left;
@@ -56,49 +21,86 @@ namespace PlaneSmash
         private bool up;
         private bool down;
         private bool shoot;
-        private void timer_Tick(object sender,EventArgs e)
+
+        public Form1()
+        {
+            InitializeComponent();
+            this.DoubleBuffered = true;
+
+            Game = new Game(this.Height, this.Width);
+
+            //Player booleans
+            right = false;
+            down = false;
+            up = false;
+            left = false;
+            shoot = false;
+
+
+            //Game Start
+            Game.CreateEnemies(5);
+
+
+            //Player timer
+            PlayerTimer = new Timer();
+            PlayerTimer.Tick += new EventHandler(PlayerTimer_Tick);
+            PlayerTimer.Interval = 10;
+            PlayerTimer.Start();
+            // Due to players shoot speed and waste of ammo we needed to slow down the shooting process
+            PlayerShootTimer = new Timer();
+            PlayerShootTimer.Tick += new EventHandler(PlayerShootTimer_Tick);
+            PlayerShootTimer.Interval = 100;
+            PlayerShootTimer.Start();
+
+            //Creating enemies
+            CreateEnemiesTimer = new Timer();
+            CreateEnemiesTimer.Tick += new EventHandler(CreateEnemiesTimer_Tick);
+            CreateEnemiesTimer.Interval = 20000;
+            CreateEnemiesTimer.Start();
+
+            //Enemies Shooting
+            EnemyShootTimer = new Timer();
+            EnemyShootTimer.Tick += new EventHandler(EnemyShootTimer_Tick);
+            EnemyShootTimer.Interval = 2000;
+            EnemyShootTimer.Start();
+
+        }
+        //Timers
+        private Timer PlayerTimer;
+        private Timer PlayerShootTimer;
+        private Timer CreateEnemiesTimer;
+        private Timer EnemyShootTimer;
+
+        private int Difficulty = 5;
+
+
+        private void PlayerTimer_Tick(object sender, EventArgs e)
         {
             Invalidate(true);
-            p.setHeight(this.Height);
-            p.setWidth(this.Width);
+            //Player
+            Game.MovePlayer(left, right, up, down);
+            Game.MovePlayerAmmunition();
 
-            en.setHeight(this.Height);
-            en.setWidth(this.Width);
-
-
-
-          
-            en.moveAmmunition();
-
-            
-            p.moveAmmunition();
-
-            if (left) p.moveLeft();
-            if (right) p.moveRight();
-            if (down) p.moveDown();
-            if (up) p.moveUp();
-           
-
-        }
-        private void shootTimer_Tick(object sender, EventArgs e)
-        {
-
-            if (shoot) p.Shoot();
-
-            en.enemyShoot();
-            en.enemyMove();
-
+            //Enemy
+            Game.MoveEnemies();
+            Game.MoveEnemyAmmunition();
 
 
         }
+        private void PlayerShootTimer_Tick(object sender, EventArgs e) { Game.PlayerShoot(shoot);}
+
+        private void CreateEnemiesTimer_Tick(object sender, EventArgs e) { Game.CreateEnemies(Difficulty); Difficulty++; }
+        private void EnemyShootTimer_Tick(object sende, EventArgs e) { Game.ShootEnemies(); }
+
+
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.Clear(Color.White);
-            p.DrawPlayer(e.Graphics);
+            //Player
+            Game.DrawPlayer(e.Graphics);
 
-            en.enemyDraw(e.Graphics);
-          
-
+            //Enemies
+            Game.DrawEnemies(e.Graphics);
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)

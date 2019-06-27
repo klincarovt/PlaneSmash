@@ -11,7 +11,7 @@ namespace PlaneSmash
     {
         private Point Position { get; set;}
 
-        private static int Speed = 15;
+        private static int Speed = 3;
         private int Health { get; set; }
 
         private static int Radius=70;
@@ -28,15 +28,20 @@ namespace PlaneSmash
         public Enemy(int h,int w)
         {
 
-            Random random = new Random();
+            Random random = new Random((int) DateTime.Now.Ticks);
 
             moveY =  random.Next(-Speed, Speed);
             moveX =  random.Next(-Speed, Speed);
 
+            if(moveX==0 && moveY == 0) { moveX = 1;moveY = 1; }
+
             Height = h;
             Width = w;
             Health = 30;
-            Position = new Point(Width-150,random.Next(1,Height-Radius)); ;
+
+            //System.Diagnostics.Debug.WriteLine(x + " " + y);
+             
+            Position = new Point(Width-150,random.Next(1,Height-Radius-50)); ;
 
             ammunitions = new List<Ammunition>();
   
@@ -45,9 +50,9 @@ namespace PlaneSmash
         public void enemyMove()
         {
             if (Position.X + Radius < Width/2) { moveX = -1 * moveX; }
-            if (Position.Y  < 0) { moveY = -1 * moveY; }
+            if (Position.Y  < 50) { moveY = -1 * moveY; }
             if (Position.X + Radius > Width) { moveX = -1 * moveX; }
-            if (Position.Y + Radius > Height) { moveY = -1 * moveY; }
+            if (Position.Y + Radius > Height-50) { moveY = -1 * moveY; }
             
 
             Position = new Point((int)(Position.X + moveX), (int)(Position.Y + moveY));
@@ -76,6 +81,7 @@ namespace PlaneSmash
             g.FillRectangle(Brushes.Red, Position.X+10, Position.Y - 5,Health,5);
             g.DrawImage(Avatar,Position.X,Position.Y);
 
+
             foreach (Ammunition a in ammunitions)
             {
                 a.enemyAmmo(g);
@@ -84,5 +90,11 @@ namespace PlaneSmash
         public void setHeight(int h) { Height = h; }
         public void setWidth(int w) { Width = w; }
 
+        public void enemyHealth() { Health -= 1; }
+        //Test
+        public List<Ammunition> GetAmmunition()
+        {
+            return ammunitions;
+        }
     }
 }

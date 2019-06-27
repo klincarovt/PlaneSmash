@@ -46,5 +46,7 @@ namespace PlaneSmash
         }
         public bool getOutOfBound() { return outOfBound; }
 
+        //Test
+        public Point getPosition() { return ammoPosition; }
     }
 }

@@ -20,20 +20,22 @@ namespace PlaneSmash
         private int ammoLeft { get; set; }
 
         private List<Ammunition> ammunitions;
-        public Player()
+        public Player(int Height,int Width)
         {
             Position = new Point(50, 50);
             Avatar = Properties.Resources.helicopterPhoto;
             ammunitions = new List<Ammunition>();
-            Health = 50;
-            ammoLeft = 500;
+            Health = 100;
+            ammoLeft = 300;
+            this.Height = Height;
+            this.Width = Width;
            
         }
 
         public void moveLeft(){     if(!(Position.X  < 0))      Position = new Point(Position.X-Speed, Position.Y);}
         public void moveRight(){    if(!(Position.X + Radius * 3 > Width))      Position = new Point(Position.X+Speed, Position.Y);}
-        public void moveUp(){       if(!(Position.Y < 0))     Position = new Point(Position.X , Position.Y-Speed);}
-        public void moveDown(){     if(!(Position.Y+Radius * 2 > Height))        Position = new Point(Position.X, Position.Y+Speed);}
+        public void moveUp(){       if(!(Position.Y < 50))     Position = new Point(Position.X , Position.Y-Speed);}
+        public void moveDown(){     if(!(Position.Y+Radius * 2 > Height-50))        Position = new Point(Position.X, Position.Y+Speed);}
         public void Shoot() {   if(ammoLeft>0) ammunitions.Add( new Ammunition ( new Point(Position.X+Radius,Position.Y+Radius) ) ); playerAmmo(); }
         public void moveAmmunition() {
             foreach (Ammunition ammo in ammunitions) {
@@ -63,7 +65,7 @@ namespace PlaneSmash
            
 
             g.DrawString("Ammo status", SystemFonts.IconTitleFont, Brushes.Black, 5, Height-80);
-            g.DrawRectangle(Pens.Black, 1, Height-60, 500, 15);
+            g.DrawRectangle(Pens.Black, 1, Height-60, 300, 15);
             g.FillRectangle(Brushes.Red, 1, Height-60, ammoLeft, 15);
 
 
@@ -80,5 +82,12 @@ namespace PlaneSmash
         }
         public void setHeight(int h) { Height = h; }
         public void setWidth(int w) { Width = w; }
+
+        //Collision
+        public bool isHit(Point p)
+        {
+            float d = (Position.X - p.X) * (Position.X - p.X) + (Position.Y - p.Y) * (Position.Y - p.Y);
+            return d <= Radius * Radius;
+        }
     }
 }
