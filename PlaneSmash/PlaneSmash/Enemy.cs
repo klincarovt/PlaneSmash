@@ -41,7 +41,7 @@ namespace PlaneSmash
 
             //System.Diagnostics.Debug.WriteLine(x + " " + y);
              
-            Position = new Point(Width-150,random.Next(1,Height-Radius-50)); ;
+            Position = new Point(Width-150,random.Next(50+Radius,Height-Radius-50)); ;
 
             ammunitions = new List<Ammunition>();
   
