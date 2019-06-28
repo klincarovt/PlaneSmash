@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PlaneSmash
@@ -38,7 +32,7 @@ namespace PlaneSmash
 
 
             //Game Start
-            Game.CreateEnemies(5);
+            Game.CreateEnemies(1);
 
 
             //Player timer
@@ -55,7 +49,7 @@ namespace PlaneSmash
             //Creating enemies
             CreateEnemiesTimer = new Timer();
             CreateEnemiesTimer.Tick += new EventHandler(CreateEnemiesTimer_Tick);
-            CreateEnemiesTimer.Interval = 20000;
+            CreateEnemiesTimer.Interval = 5000;
             CreateEnemiesTimer.Start();
 
             //Enemies Shooting
@@ -71,7 +65,7 @@ namespace PlaneSmash
         private Timer CreateEnemiesTimer;
         private Timer EnemyShootTimer;
 
-        private int Difficulty = 5;
+        private int Difficulty = 3;
 
 
         private void PlayerTimer_Tick(object sender, EventArgs e)
@@ -85,9 +79,13 @@ namespace PlaneSmash
             Game.MoveEnemies();
             Game.MoveEnemyAmmunition();
 
+            Game.setHeight(this.Height);
+            Game.setWidth(this.Width);
+
+            
 
         }
-        private void PlayerShootTimer_Tick(object sender, EventArgs e) { Game.PlayerShoot(shoot);}
+        private void PlayerShootTimer_Tick(object sender, EventArgs e) { Game.PlayerShoot(shoot); Game.CheckPlayerCollisions(); Game.CheckEnemiesCollisions(); }
 
         private void CreateEnemiesTimer_Tick(object sender, EventArgs e) { Game.CreateEnemies(Difficulty); Difficulty++; }
         private void EnemyShootTimer_Tick(object sende, EventArgs e) { Game.ShootEnemies(); }

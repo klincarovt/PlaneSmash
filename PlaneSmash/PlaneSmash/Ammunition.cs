@@ -7,32 +7,32 @@ using System.Threading.Tasks;
 
 namespace PlaneSmash
 {
-    class Ammunition
+    public class Ammunition
     {
         private Point ammoPosition { get; set; }
         private Image ammoImage;
         private Image ammoImageReversed;
         private static int playerTravelSpeed = 10;
         private static int enemyTravelSpeed = 5;
-        private Boolean outOfBound { get; set; }
+        private bool shouldNotExist { get; set; }
         public Ammunition(Point p)
         {
             ammoPosition = p;
             ammoImage= Properties.Resources.ammo;
             ammoImageReversed= Properties.Resources.ammoReversed;
-      
-            outOfBound = false;
+
+            shouldNotExist = false;
         }
 
         public void playerAmmoMove(int Width) {
-            if (ammoPosition.X > Width) outOfBound = true;
+            if (ammoPosition.X > Width) shouldNotExist = true;
             ammoPosition = new Point(ammoPosition.X + playerTravelSpeed, ammoPosition.Y);
         }
 
        
         public void enemyAmmoMove(int Width)
         {
-            if (ammoPosition.X > Width) outOfBound = true;
+            if (ammoPosition.X > Width) shouldNotExist = true;
             ammoPosition = new Point(ammoPosition.X - enemyTravelSpeed, ammoPosition.Y);
         }
         
@@ -44,8 +44,8 @@ namespace PlaneSmash
         {
             g.DrawImage(ammoImage, ammoPosition);
         }
-        public bool getOutOfBound() { return outOfBound; }
-
+        public bool getShouldNotExist() { return shouldNotExist; }
+        public void setShouldNotExist(bool b) { shouldNotExist = b; }
         //Test
         public Point getPosition() { return ammoPosition; }
     }

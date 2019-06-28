@@ -14,7 +14,7 @@ namespace PlaneSmash
         private static int Speed = 3;
         private int Health { get; set; }
 
-        private static int Radius=70;
+        private static int Radius=50;
       
         private int Height { get; set; }
         private int Width { get; set; }
@@ -23,7 +23,10 @@ namespace PlaneSmash
         private int moveX { get; set; }
         private int moveY { get; set; }
 
-        List<Ammunition> ammunitions;
+        public bool Shoot { get; set; }
+        public bool Draw { get; set; }
+
+        public List<Ammunition> ammunitions;
 
         public Enemy(int h,int w)
         {
@@ -44,6 +47,9 @@ namespace PlaneSmash
             Position = new Point(Width-150,random.Next(50+Radius,Height-Radius-50)); ;
 
             ammunitions = new List<Ammunition>();
+
+            Shoot = true;
+            Draw = true;
   
         }
         
@@ -60,6 +66,7 @@ namespace PlaneSmash
 
         public void enemyShoot()
         {
+            if (Shoot == true)
             ammunitions.Add(new Ammunition(new Point(Position.X,Position.Y+30)));
         }
 
@@ -71,16 +78,19 @@ namespace PlaneSmash
             }
             for (int i = ammunitions.Count - 1; i > 0; i--)
             {
-                if (ammunitions[i].getOutOfBound()) ammunitions.RemoveAt(i);
+                if (ammunitions[i].getShouldNotExist()==true) ammunitions.RemoveAt(i); 
+
             }
         }
 
         public void enemyDraw(Graphics g)
         {
-            g.DrawRectangle(Pens.Black,Position.X+10,Position.Y-5,Health,5);
-            g.FillRectangle(Brushes.Red, Position.X+10, Position.Y - 5,Health,5);
-            g.DrawImage(Avatar,Position.X,Position.Y);
-
+            if (Draw == true)
+            {
+                g.DrawRectangle(Pens.Black, Position.X + 10, Position.Y - 5, Health, 5);
+                g.FillRectangle(Brushes.Red, Position.X + 10, Position.Y - 5, Health, 5);
+                g.DrawImage(Avatar, Position.X, Position.Y);
+            }
 
             foreach (Ammunition a in ammunitions)
             {
@@ -90,11 +100,14 @@ namespace PlaneSmash
         public void setHeight(int h) { Height = h; }
         public void setWidth(int w) { Width = w; }
 
-        public void enemyHealth() { Health -= 1; }
-        //Test
-        public List<Ammunition> GetAmmunition()
+        public void enemyHealth() { Health -= 10; }
+
+        public int getHealth() { return Health; }
+
+        public bool EnemyHit(Ammunition a)
         {
-            return ammunitions;
+            float d = (Position.X - a.getPosition().X) * (Position.X - a.getPosition().X) + (Position.Y - a.getPosition().Y) * (Position.Y - a.getPosition().Y);
+            return d <= Radius * Radius;
         }
     }
 }

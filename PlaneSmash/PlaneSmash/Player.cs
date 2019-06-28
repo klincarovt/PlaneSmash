@@ -19,14 +19,14 @@ namespace PlaneSmash
         private int Health { get; set; }
         private int ammoLeft { get; set; }
 
-        private List<Ammunition> ammunitions;
+        public List<Ammunition> ammunitions;
         public Player(int Height,int Width)
         {
             Position = new Point(50, 50);
             Avatar = Properties.Resources.helicopterPhoto;
             ammunitions = new List<Ammunition>();
-            Health = 100;
-            ammoLeft = 300;
+            Health = 300;
+            ammoLeft = 1000;
             this.Height = Height;
             this.Width = Width;
            
@@ -43,7 +43,7 @@ namespace PlaneSmash
             }
             for (int i = ammunitions.Count-1; i > 0; i--)
             {
-                if (ammunitions[i].getOutOfBound()) ammunitions.RemoveAt(i);
+                if (ammunitions[i].getShouldNotExist()) ammunitions.RemoveAt(i);
             }
         }
 
@@ -57,15 +57,12 @@ namespace PlaneSmash
 
             g.DrawString("Health bar",SystemFonts.IconTitleFont, Brushes.Black, 1, 1);
         
-            g.DrawRectangle(Pens.Black, 1, 20, 100, 15);
+            g.DrawRectangle(Pens.Black, 1, 20, 300, 15);
             g.FillRectangle(Brushes.Green, 1, 20, Health, 15);
 
-            Font font;
-            font = new Font(SystemFonts.DefaultFont,FontStyle.Regular);
            
-
             g.DrawString("Ammo status", SystemFonts.IconTitleFont, Brushes.Black, 5, Height-80);
-            g.DrawRectangle(Pens.Black, 1, Height-60, 300, 15);
+            g.DrawRectangle(Pens.Black, 1, Height-60, 1000, 15);
             g.FillRectangle(Brushes.Red, 1, Height-60, ammoLeft, 15);
 
 
@@ -84,10 +81,10 @@ namespace PlaneSmash
         public void setWidth(int w) { Width = w; }
 
         //Collision
-        public bool isHit(Point p)
+        public bool PlayerHit(Ammunition a)
         {
-            float d = (Position.X - p.X) * (Position.X - p.X) + (Position.Y - p.Y) * (Position.Y - p.Y);
-            return d <= Radius * Radius;
+            float d = (Position.X - a.getPosition().X) * (Position.X - a.getPosition().X) + (Position.Y - a.getPosition().Y) * (Position.Y - a.getPosition().Y);
+            return d <= Radius*Radius ;
         }
     }
 }
