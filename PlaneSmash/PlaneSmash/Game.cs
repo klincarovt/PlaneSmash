@@ -104,7 +104,12 @@ namespace PlaneSmash
             {
                 foreach(Enemy e in Enemies)
                 {
-                    if (e.EnemyHit(a) == true) e.enemyHealth();
+                    if (e.EnemyHit(a) == true)
+                    {
+                        e.enemyHealth();
+                        a.setShouldNotExist(true);
+                    }
+
                     if (e.getHealth() == 0)
                     {
                         e.Draw = false;

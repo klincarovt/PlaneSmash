@@ -14,7 +14,7 @@ namespace PlaneSmash
         private static int Speed = 3;
         private int Health { get; set; }
 
-        private static int Radius=50;
+        private static int Radius=45;
       
         private int Height { get; set; }
         private int Width { get; set; }
@@ -59,9 +59,16 @@ namespace PlaneSmash
             if (Position.Y  < 50) { moveY = -1 * moveY; }
             if (Position.X + Radius > Width) { moveX = -1 * moveX; }
             if (Position.Y + Radius > Height-50) { moveY = -1 * moveY; }
-            
 
-            Position = new Point((int)(Position.X + moveX), (int)(Position.Y + moveY));
+            if (Draw == true)
+            {
+                Position = new Point((int)(Position.X + moveX), (int)(Position.Y + moveY));
+            }
+            else
+            {
+                Position = new Point(2000, 2000);
+            }
+
         }
 
         public void enemyShoot()
@@ -91,7 +98,7 @@ namespace PlaneSmash
                 g.FillRectangle(Brushes.Red, Position.X + 10, Position.Y - 5, Health, 5);
                 g.DrawImage(Avatar, Position.X, Position.Y);
             }
-
+           
             foreach (Ammunition a in ammunitions)
             {
                 a.enemyAmmo(g);

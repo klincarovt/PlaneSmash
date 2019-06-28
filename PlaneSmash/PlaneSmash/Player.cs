@@ -14,7 +14,7 @@ namespace PlaneSmash
         private int Width { get; set; }
         private Image Avatar { get; set; }
         private static int Speed = 5;
-        private static int Radius = 50;
+        private static int Radius = 40;
        
         private int Health { get; set; }
         private int ammoLeft { get; set; }
