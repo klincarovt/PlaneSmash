@@ -17,13 +17,17 @@ namespace PlaneSmash
         public MenuForm()
         {
             InitializeComponent();
-            intro.PlayLooping();
+            intro = new SoundPlayer();
+            intro.Play();
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            Form1 f1 = new Form1();
+            f1.ShowDialog();
+            this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -50,6 +54,21 @@ namespace PlaneSmash
         private void button3_MouseEnter(object sender, EventArgs e)
         {
             button3.BackColor = Color.DarkRed;
+        }
+
+        private void button1_MouseLeave(object sender, EventArgs e)
+        {
+            button1.BackColor = Color.Gray;
+        }
+
+        private void button2_MouseLeave(object sender, EventArgs e)
+        {
+            button2.BackColor = Color.Gray;
+        }
+
+        private void button3_MouseLeave(object sender, EventArgs e)
+        {
+            button3.BackColor = Color.Gray;
         }
     }
 }

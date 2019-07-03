@@ -29,7 +29,7 @@ namespace PlaneSmash
 
         private void btnBack_MouseLeave(object sender, EventArgs e)
         {
-
+            btnBack.BackColor = Color.Gray;
         }
     }
 }

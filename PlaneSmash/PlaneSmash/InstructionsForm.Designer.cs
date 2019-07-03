@@ -80,6 +80,7 @@
             // 
             // pictureBox2
             // 
+            this.pictureBox2.Image = global::PlaneSmash.Properties.Resources.z;
             this.pictureBox2.Location = new System.Drawing.Point(261, 12);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(135, 112);
