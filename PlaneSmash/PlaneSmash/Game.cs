@@ -14,16 +14,57 @@ namespace PlaneSmash
 
         private int Height { get; set; }
         private int Width { get; set; }
-        
+
+        List<Background> backgrounds;
+
+        public int score { get; set; }
+        public bool GameOverStatus;
+
+        private GameOver gameOver;
         public Game(int height, int width)
         {
             Height = height;
             Width = width;
-            Player = new Player(Height,Width);
+            Player = new Player(Height, Width);
             Enemies = new List<Enemy>();
+            backgrounds = new List<Background>();
+            gameOver = new GameOver(height, width);
+            GameOverStatus = false;
+            score = 0;
         }
 
+        //Game Over
+        public void DrawGameOver(Graphics g)
+        {
+            gameOver.DrawGameOver(g,score);
+        }
 
+        //Background
+        public void AddBackgroundObject()
+        {
+            backgrounds.Add(new Background(Width, Height));
+        }
+        public void DrawBackground(Graphics g)
+        {
+            foreach(Background b in backgrounds)
+            {
+                b.DrawBackground(g);
+            }
+        }
+
+        public void MoveBackground()
+        {
+            foreach (Background b in backgrounds) b.MoveBackground();
+            for (int i = backgrounds.Count - 1; i >= 0; i--)
+            {
+                if (backgrounds[i].RemoveFlag == true)
+                {
+                    backgrounds.RemoveAt(i);
+                }
+            }
+        }
+
+      
         //Enemies
         public void CreateEnemies(int Difficulty) {
             for (int i=0; i<Difficulty;i++)
@@ -93,7 +134,8 @@ namespace PlaneSmash
             {
                 Player.playerHealth();
             }
-           
+
+            if (Player.Dead == true) GameOverStatus = true;
         }
 
         //Collisions Enemy
@@ -124,6 +166,7 @@ namespace PlaneSmash
                         if (Enemies[i].ammunitions.Count < 1)
                         {
                             Enemies.RemoveAt(i);
+                            score = score + 1;
                         }
                     }
                 }

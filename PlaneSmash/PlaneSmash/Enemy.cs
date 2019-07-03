@@ -18,7 +18,7 @@ namespace PlaneSmash
       
         private int Height { get; set; }
         private int Width { get; set; }
-        private Image Avatar = Properties.Resources.enemyCopter;
+        private Image Avatar = Properties.Resources.enemyCopterpng;
 
         private int moveX { get; set; }
         private int moveY { get; set; }
@@ -44,7 +44,7 @@ namespace PlaneSmash
 
             //System.Diagnostics.Debug.WriteLine(x + " " + y);
              
-            Position = new Point(Width-150,random.Next(50+Radius,Height-Radius-50)); ;
+            Position = new Point(Width-150,random.Next(50+Radius,Height-Radius-150)); ;
 
             ammunitions = new List<Ammunition>();
 
@@ -56,9 +56,9 @@ namespace PlaneSmash
         public void enemyMove()
         {
             if (Position.X + Radius < Width/2) { moveX = -1 * moveX; }
-            if (Position.Y  < 50) { moveY = -1 * moveY; }
+            if (Position.Y  < 100) { moveY = -1 * moveY; }
             if (Position.X + Radius > Width) { moveX = -1 * moveX; }
-            if (Position.Y + Radius > Height-50) { moveY = -1 * moveY; }
+            if (Position.Y + Radius > Height-150) { moveY = -1 * moveY; }
 
             if (Draw == true)
             {

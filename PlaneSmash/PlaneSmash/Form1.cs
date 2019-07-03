@@ -58,16 +58,27 @@ namespace PlaneSmash
             EnemyShootTimer.Interval = 2000;
             EnemyShootTimer.Start();
 
+
+            Background = new Timer();
+            Background.Tick += new EventHandler(Background_Tick);
+            Background.Interval = 500;
+            Background.Start();
+
         }
         //Timers
         private Timer PlayerTimer;
         private Timer PlayerShootTimer;
         private Timer CreateEnemiesTimer;
         private Timer EnemyShootTimer;
+        private Timer Background;
 
         private int Difficulty = 3;
 
 
+        private void Background_Tick(object sender,EventArgs e)
+        {
+            Game.AddBackgroundObject();
+        }
         private void PlayerTimer_Tick(object sender, EventArgs e)
         {
             Invalidate(true);
@@ -82,7 +93,7 @@ namespace PlaneSmash
             Game.setHeight(this.Height);
             Game.setWidth(this.Width);
 
-            
+            Game.MoveBackground();
 
         }
         private void PlayerShootTimer_Tick(object sender, EventArgs e) { Game.PlayerShoot(shoot); Game.CheckPlayerCollisions(); Game.CheckEnemiesCollisions(); }
@@ -93,12 +104,29 @@ namespace PlaneSmash
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.Clear(Color.White);
-            //Player
-            Game.DrawPlayer(e.Graphics);
 
-            //Enemies
-            Game.DrawEnemies(e.Graphics);
+            if (!Game.GameOverStatus)
+            {
+                e.Graphics.Clear(Color.SkyBlue);
+                //Player
+                Game.DrawPlayer(e.Graphics);
+
+                //Enemies
+                Game.DrawEnemies(e.Graphics);
+
+                Game.DrawBackground(e.Graphics);
+            }
+            else
+            {
+                e.Graphics.Clear(Color.Red);
+                Game.DrawGameOver(e.Graphics);
+                PlayerTimer.Stop();
+                PlayerShootTimer.Stop();
+                CreateEnemiesTimer.Stop();
+                EnemyShootTimer.Stop();
+                Background.Stop();
+
+            }   
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
