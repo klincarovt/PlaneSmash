@@ -14,12 +14,12 @@
 ![alt_text](https://github.com/klincarovt/PlaneSmash/blob/master/PlaneSmash.jpg)
 
 *Втората форма се добива при клик на копчето за инстуркции. Таа форма ни го прикажува начинот на кој може да се игра играта.
-![alt_text] (https://github.com/klincarovt/PlaneSmash/blob/master/InstructionForm.jpg)
+![alt_text](https://github.com/klincarovt/PlaneSmash/blob/master/InstructionForm.jpg)
 
 *Додека пак третата форма, е всушност формата во која се почнува со играта. 
 Правила на оваа игра е прежувањето на еден хеликоптер кој е постојано нападнат од противници. Со убивање на противници остваруваат поени. Противниците се појавуваат на одредено време и напаѓаат. Крајот на играта е кога играчот ќе биде убиен.
 
-![alt_text] (https://github.com/klincarovt/PlaneSmash/blob/master/GlavnaForma.jpg)
+![alt_text](https://github.com/klincarovt/PlaneSmash/blob/master/GlavnaForma.jpg)
 
 
 
