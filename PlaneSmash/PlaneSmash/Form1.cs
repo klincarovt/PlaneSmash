@@ -38,7 +38,7 @@ namespace PlaneSmash
             //Player timer
             PlayerTimer = new Timer();
             PlayerTimer.Tick += new EventHandler(PlayerTimer_Tick);
-            PlayerTimer.Interval = 10;
+            PlayerTimer.Interval = 1;
             PlayerTimer.Start();
             // Due to players shoot speed and waste of ammo we needed to slow down the shooting process
             PlayerShootTimer = new Timer();
@@ -61,7 +61,7 @@ namespace PlaneSmash
 
             Background = new Timer();
             Background.Tick += new EventHandler(Background_Tick);
-            Background.Interval = 500;
+            Background.Interval = 700;
             Background.Start();
 
         }

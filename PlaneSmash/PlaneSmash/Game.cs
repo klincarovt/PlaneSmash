@@ -10,7 +10,7 @@ namespace PlaneSmash
     class Game
     {
         private Player Player { get; set; }
-        List<Enemy> Enemies { get; set; }
+        LinkedList<Enemy> Enemies { get; set; }
 
         private int Height { get; set; }
         private int Width { get; set; }
@@ -26,7 +26,7 @@ namespace PlaneSmash
             Height = height;
             Width = width;
             Player = new Player(Height, Width);
-            Enemies = new List<Enemy>();
+            Enemies = new LinkedList<Enemy>();
             backgrounds = new List<Background>();
             gameOver = new GameOver(height, width);
             GameOverStatus = false;
@@ -69,7 +69,7 @@ namespace PlaneSmash
         public void CreateEnemies(int Difficulty) {
             for (int i=0; i<Difficulty;i++)
             {
-                Enemies.Add(new Enemy(Height, Width));
+                Enemies.AddLast(new Enemy(Height, Width));
             }
         }
         public void DrawEnemies(Graphics g) {
@@ -150,6 +150,7 @@ namespace PlaneSmash
                     {
                         e.enemyHealth();
                         a.setShouldNotExist(true);
+                        System.Diagnostics.Debug.WriteLine("Deleting enemy");
                     }
 
                     if (e.getHealth() == 0)
@@ -158,18 +159,23 @@ namespace PlaneSmash
                         e.Shoot = false;
                     }
             }
-
-                for (int i = 0; i <= Enemies.Count - 1; i++)
-                {
-                    if (Enemies[i].Draw == false)
+                if (Enemies.Count > 1) {
+                    foreach(Enemy e in Enemies.ToList()) 
                     {
-                        if (Enemies[i].ammunitions.Count < 1)
-                        {
-                            Enemies.RemoveAt(i);
-                            score = score + 1;
-                        }
+                        if (e.Draw == false) Enemies.Remove(e);
                     }
                 }
+                //for (int i = 0; i <= Enemies.Count - 1; i++)
+                //{
+                //  if (Enemies[i].Draw == false)
+                //{
+                //  if (Enemies[i].ammunitions.Count < 1)
+                //{
+                //  Enemies.Remove(i);
+                //score = score + 1;
+                //}
+                //}
+                //}
             }
        
         }
